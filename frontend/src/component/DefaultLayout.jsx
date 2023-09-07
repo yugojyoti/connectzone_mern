@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import Loader from "./Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/slices/authSlice";
+import { message } from "antd";
 
 const { Header, Sider, Content } = Layout;
 
@@ -28,14 +29,14 @@ const DefaultLayout = ({ children }) => {
   const { userInfo } = useSelector((state) => state.auth);
   const handleLogout = async () => {
     try {
-      const res = await logoutAPI();
-      console.log(res);
-      toast.success("Logging out..");
+      const res = await logoutAPI().unwrap();
+      // console.log(res);
+      message.success(res.message);
       dispatch(logout());
       navigate("/login");
     } catch (error) {
       console.log(error);
-      toast.error(error?.data?.message || error.error);
+      message.error(error?.data?.message || error.error);
     }
   };
   const {
@@ -58,7 +59,7 @@ const DefaultLayout = ({ children }) => {
               <div
                 className="d-flex justify-content-between align-items-center boxshadow"
                 style={{
-                  boxShadow: `rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;`,
+                  boxShadow: `rgba(100, 100, 111, 0.2) 0px 7px 29px 0px`,
                 }}
               >
                 <h4>{userInfo ? userInfo.username : "Temp User"}</h4>
@@ -110,6 +111,11 @@ const DefaultLayout = ({ children }) => {
                   key: "/addpost",
                   icon: <UploadOutlined />,
                   label: <Link to="/addpost"> Add Post</Link>,
+                },
+                {
+                  key: "/alluser",
+                  icon: <UploadOutlined />,
+                  label: <Link to="/alluser"> All User</Link>,
                 },
                 {
                   key: "/logout",

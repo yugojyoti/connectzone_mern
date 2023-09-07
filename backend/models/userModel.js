@@ -7,12 +7,12 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: [true, "Please enter email"] },
     password: { type: String, required: [true, "Please Enter a username"] },
     privateAccount: { type: Boolean, default: false },
-    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "users" }],
-    following: [{ type: mongoose.Schema.Types.ObjectId, ref: "users" }],
+    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     profilePicUrl: { type: String },
     bio: { type: String },
-    savedPost: [],
-    archievedPost: [],
+    savedPost: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
+    archievedPost: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
   },
   { timestamps: true }
 );

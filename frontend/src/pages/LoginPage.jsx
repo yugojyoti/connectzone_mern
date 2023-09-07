@@ -15,6 +15,7 @@ import Loader from "../component/Loader";
 import { toast } from "react-toastify";
 import { setCredential } from "../redux/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { message } from "antd";
 const LoginPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,10 +33,10 @@ const LoginPage = () => {
     try {
       const res = await login(user).unwrap();
       dispatch(setCredential({ ...res.user }));
-
+      message.success(res.message);
       navigate("/");
     } catch (error) {
-      toast.error(error?.data?.message || error.error);
+      message.error(error?.data?.message || error.error);
     }
   };
   return (
@@ -79,7 +80,7 @@ const LoginPage = () => {
                   <div className="d-flex justify-content-center ">
                     <Button type="submit" className="mt-3 text-center">
                       {" "}
-                      Register
+                      Login
                     </Button>
                   </div>
                   <div className="d-flex justify-content-center mt-3">

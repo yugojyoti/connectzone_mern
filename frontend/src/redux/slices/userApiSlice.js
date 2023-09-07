@@ -18,6 +18,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body: data,
         credentials: "include",
       }),
+      invalidatesTags: ["User"],
     }),
     logout: builder.mutation({
       query: () => ({
@@ -32,6 +33,14 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: ["User"], // provides tags- that need to update after a mutation in done
     }),
+    followUser: builder.mutation({
+      query: (data) => ({
+        url: `${USERS_URL}/followuser`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Post"],
+    }),
   }),
 });
 
@@ -40,4 +49,5 @@ export const {
   useRegisterMutation,
   useLogoutMutation,
   useGetAllUserQuery,
+  useFollowUserMutation,
 } = userApiSlice;

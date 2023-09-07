@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredential } from "../redux/slices/authSlice";
+import { message } from "antd";
 const RegisterPage = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -33,9 +34,10 @@ const RegisterPage = () => {
     try {
       const res = await register(user).unwrap();
       dispatch(setCredential({ ...res.user }));
+      message.success(res.message);
       navigate("/");
     } catch (error) {
-      toast.error(error?.data?.message || error.error);
+      message.error(error?.data?.message || error.error);
     }
   };
 

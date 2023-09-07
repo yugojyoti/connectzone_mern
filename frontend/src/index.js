@@ -17,6 +17,7 @@ import { store } from "./redux/store";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import ProtectedRoute from "./component/ProtectedRoute";
+import AllUsers from "./pages/AllUsers";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
         <Route path="/" element={<HomePage />} index={true} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/addpost" element={<AddPostPage />} />
+        <Route path="/alluser" element={<AllUsers />} />
       </Route>
     </Route>
   )

@@ -43,7 +43,9 @@ const loginUser = asyncHandler(async (req, res) => {
       }
     );
 
-    res.status(200).json({ user: sendUser, message: " User Logging in .." });
+    res
+      .status(200)
+      .json({ user: sendUser, message: " Logged In Successfully" });
   } else {
     res.status(404).json({ message: "Invalid Username or Password" });
   }
@@ -62,9 +64,22 @@ const getAllUsers = asyncHandler(async (req, res) => {
     res.status(404).json({ message: " User not found" });
   }
 });
+const followUser = asyncHandler(async (req, res) => {
+  const { currentUserId, recieverUserId } = req.body;
+  let currentUser = await User.findById(currentUserId);
+  currentUser.following.push(recieverUserId);
+  await User.findByIdAndUpdate(currentUserId, currentUser);
+
+  let recieverUser = await User.findById(recieverUserId);
+  recieverUser.followers.push(currentUserId);
+  await User.findByIdAndUpdate(recieverUserId, recieverUser);
+  res.status(200).json({ message: "User Followed Successfully" });
+});
+
 module.exports = {
   registerUser,
   loginUser,
   logOutUser,
   getAllUsers,
+  followUser,
 };

@@ -8,6 +8,7 @@ const cookieParser = require("cookie-parser");
 //path module import
 const { connectDb } = require("./config/db");
 const userRoute = require("./routes/usersRoute");
+const postsRoute = require("./routes/postsRoute");
 
 // middleware
 app.use(cors({ credentials: true, origin: true }));
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
   res.send("hello there");
 });
 app.use("/api/users", userRoute);
+app.use("/api/posts", postsRoute);
 
 //database connction
 
