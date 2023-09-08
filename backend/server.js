@@ -1,4 +1,5 @@
 // import module
+const path = require("path");
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -16,17 +17,25 @@ app.use(express.json({ limit: "25mb" }));
 app.use(express.urlencoded({ extended: true, limit: "25mb" }));
 app.use(cookieParser());
 
-//routes
+//database connction
+connectDb(process.env.MONGO_URI);
 
-app.get("/", (req, res) => {
-  res.send("hello there");
-});
+//routes
 app.use("/api/users", userRoute);
 app.use("/api/posts", postsRoute);
 
-//database connction
+const __thispath = path.resolve();
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__thispath, "/frontend/build")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__thispath, "frontend", "build", "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running...");
+  });
+}
 
-connectDb(process.env.MONGO_URI);
 //port
 const port = process.env.PORT || 5000;
 
