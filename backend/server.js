@@ -12,8 +12,8 @@ const postsRoute = require("./routes/postsRoute");
 
 // middleware
 app.use(cors({ credentials: true, origin: true }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: "25mb" }));
+app.use(express.urlencoded({ extended: true, limit: "25mb" }));
 app.use(cookieParser());
 
 //routes
@@ -26,7 +26,7 @@ app.use("/api/posts", postsRoute);
 
 //database connction
 
-connectDb("mongodb://0.0.0.0:27017/connectzone");
+connectDb(process.env.MONGO_URI);
 //port
 const port = process.env.PORT || 5000;
 

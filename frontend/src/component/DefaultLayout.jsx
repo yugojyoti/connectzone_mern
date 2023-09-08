@@ -7,12 +7,12 @@ import {
   UserOutlined,
   HomeOutlined,
   LogoutOutlined,
-  VideoCameraOutlined,
+  OrderedListOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, Button, theme } from "antd";
 import { Link } from "react-router-dom";
 import { useLogoutMutation } from "../redux/slices/userApiSlice";
-import { ToastContainer, toast } from "react-toastify";
+
 import { useNavigate } from "react-router-dom";
 import Loader from "./Loader";
 import { useDispatch, useSelector } from "react-redux";
@@ -62,8 +62,24 @@ const DefaultLayout = ({ children }) => {
                   boxShadow: `rgba(100, 100, 111, 0.2) 0px 7px 29px 0px`,
                 }}
               >
-                <h4>{userInfo ? userInfo.username : "Temp User"}</h4>
-                <h2>Connect Zone</h2>
+                <h4>
+                  {userInfo ? (
+                    <Link
+                      to={`/profile/${userInfo._id}`}
+                      style={{ textDecoration: "none", margin: "5px 20px" }}
+                    >
+                      <UserOutlined />
+                      <span className="mx-2 ">{userInfo.username}</span>
+                    </Link>
+                  ) : (
+                    "Temp User"
+                  )}
+                </h4>
+                <Link to="/" style={{ textDecoration: "none" }}>
+                  {" "}
+                  <h2 className="text-dark">Connect Zone</h2>
+                </Link>
+
                 <Button
                   type="text"
                   icon={
@@ -103,9 +119,9 @@ const DefaultLayout = ({ children }) => {
                   label: <Link to="/"> Home</Link>,
                 },
                 {
-                  key: "/profile",
+                  key: `/profile/${userInfo._id}`,
                   icon: <UserOutlined />,
-                  label: <Link to="/profile"> Profile</Link>,
+                  label: <Link to={`/profile/${userInfo._id}`}> Profile</Link>,
                 },
                 {
                   key: "/addpost",
@@ -114,7 +130,7 @@ const DefaultLayout = ({ children }) => {
                 },
                 {
                   key: "/alluser",
-                  icon: <UploadOutlined />,
+                  icon: <OrderedListOutlined />,
                   label: <Link to="/alluser"> All User</Link>,
                 },
                 {

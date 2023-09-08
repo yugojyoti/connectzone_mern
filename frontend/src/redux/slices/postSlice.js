@@ -33,6 +33,28 @@ const postApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Post"],
     }),
+    deletePost: builder.mutation({
+      query: (data) => ({
+        url: `${POSTS_URL}/deletepost`,
+        method: "DELETE",
+        body: data,
+      }),
+      invalidatesTags: ["Post"],
+    }),
+    editPost: builder.mutation({
+      query: (data) => ({
+        url: `${POSTS_URL}/editpost`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["Post"],
+    }),
+    getPost: builder.query({
+      query: (postId) => ({
+        url: `${POSTS_URL}/getpost/${postId}`,
+      }),
+      providesTags: ["Post"],
+    }),
   }),
 });
 
@@ -41,4 +63,7 @@ export const {
   useGetAllPostQuery,
   useLikeMutation,
   useAddcommentMutation,
+  useDeletePostMutation,
+  useEditPostMutation,
+  useGetPostQuery,
 } = postApiSlice;

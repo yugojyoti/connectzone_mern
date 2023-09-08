@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { message } from "antd";
 import Loader from "./Loader";
 import { useGetAllUserQuery } from "../redux/slices/userApiSlice";
+import { Link } from "react-router-dom";
 const Post = ({ posts }) => {
   const { userInfo } = useSelector((state) => state.auth);
   const [show, setShow] = useState(false);
@@ -81,7 +82,12 @@ const Post = ({ posts }) => {
                     <Row className="align-items-center">
                       <Col className="col-2 ">
                         {post.user.profilePicUrl ? (
-                          <Image src={post.user.profilePicUrl} />
+                          <Image
+                            src={post.user.profilePicUrl}
+                            height={40}
+                            width={40}
+                            className="rounded-circle "
+                          />
                         ) : (
                           <div className=" bg-secondary text-light  profile-pic fw-bold ">
                             {post.user.username[0].toUpperCase()}
@@ -89,7 +95,14 @@ const Post = ({ posts }) => {
                         )}
                       </Col>
                       <Col className="col-6 ml-1 text-primary fst-italic fw-light">
-                        <h6 className="">{post.user.username}</h6>
+                        <h6 className="">
+                          <Link
+                            to={`/profile/${post.user._id}`}
+                            style={{ textDecoration: "none" }}
+                          >
+                            {post.user.username}
+                          </Link>
+                        </h6>
                       </Col>
                       <Col className="col-4 ">
                         <p>{post.createdAt.slice(0, 10)}</p>
@@ -165,6 +178,7 @@ const Post = ({ posts }) => {
                       </div>
                     </div>
                     <hr />
+                    {post.comments.length !== 0 && <p> Comments</p>}
                     {post.comments.length >= 0 && allUser ? (
                       post.comments.map((comment) => {
                         const userComment = allUser.filter(
@@ -173,13 +187,18 @@ const Post = ({ posts }) => {
 
                         return (
                           <div
-                            className="mt-2 bg-secondary-subtle"
+                            className="mt-2 bg-primary-subtle"
                             key={comment._id}
                           >
                             <div className="row">
                               <div className="col-2">
                                 {userComment[0].profilePicUrl ? (
-                                  <Image src={userComment[0].profilePicUrl} />
+                                  <Image
+                                    src={userComment[0].profilePicUrl}
+                                    height={40}
+                                    width={40}
+                                    className="rounded-circle "
+                                  />
                                 ) : (
                                   <div className=" bg-secondary text-light  profile-pic fw-bold ">
                                     {userComment[0].username[0].toUpperCase()}

@@ -18,6 +18,8 @@ import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import ProtectedRoute from "./component/ProtectedRoute";
 import AllUsers from "./pages/AllUsers";
+import EditProfile from "./pages/EditProfile";
+import EditPost from "./pages/EditPost";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,9 +29,11 @@ const router = createBrowserRouter(
 
       <Route path="" element={<ProtectedRoute />}>
         <Route path="/" element={<HomePage />} index={true} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile/:userId" element={<ProfilePage />} />
         <Route path="/addpost" element={<AddPostPage />} />
         <Route path="/alluser" element={<AllUsers />} />
+        <Route path="/editProfile" element={<EditProfile />} />
+        <Route path="/editpost/:postId" element={<EditPost />} />
       </Route>
     </Route>
   )

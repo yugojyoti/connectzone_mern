@@ -39,7 +39,30 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["Post"],
+      invalidatesTags: ["User"],
+    }),
+    unFollowUser: builder.mutation({
+      query: (data) => ({
+        url: `${USERS_URL}/unfollowuser`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["User"],
+    }),
+    getUser: builder.query({
+      query: (userId) => ({
+        url: `${USERS_URL}/getuser/${userId}`,
+        method: "POST",
+      }),
+      providesTags: ["User"],
+    }),
+    editProfile: builder.mutation({
+      query: (data) => ({
+        url: `${USERS_URL}/editProfile`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["User"],
     }),
   }),
 });
@@ -50,4 +73,7 @@ export const {
   useLogoutMutation,
   useGetAllUserQuery,
   useFollowUserMutation,
+  useUnFollowUserMutation,
+  useGetUserQuery,
+  useEditProfileMutation,
 } = userApiSlice;

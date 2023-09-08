@@ -46,7 +46,7 @@ const RegisterPage = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="container-fluid bg-primary-subtle ">
+        <div className="container-fluid bg-secondary-subtle ">
           <Row className="justify-content-center align-items-center vh-100">
             <Col sm={8} md={6} lg={5}>
               <Card className="p-3 card-block border-dark-subtle shadow rounded ">

@@ -87,5 +87,41 @@ const addComment = asyncHandler(async (req, res) => {
     res.status(404).json({ message: "Post not found" });
   }
 });
+const deletePost = asyncHandler(async (req, res) => {
+  const { postId } = req.body;
+  const postDeleted = await Post.findByIdAndDelete(postId);
+  if (postDeleted) {
+    res.status(200).json({ message: "post successfully deleted" });
+  } else {
+    res.status(404).json({ message: "failed to delete" });
+  }
+});
 
-module.exports = { addPost, getAllPost, likePost, addComment };
+const editPost = asyncHandler(async (req, res) => {
+  const { postId, description } = req.body;
+  const postEdit = await Post.findByIdAndUpdate(postId, { description });
+  if (postEdit) {
+    res.status(200).json({ message: "Post edited" });
+  } else {
+    res.status(404).json({ message: " Couldnt edit post" });
+  }
+});
+
+const getPost = asyncHandler(async (req, res) => {
+  const { postId } = req.params;
+  const post = await Post.findById(postId);
+  if (post) {
+    res.status(200).json(post);
+  } else {
+    res.status(404).json({ message: "Post not found" });
+  }
+});
+module.exports = {
+  addPost,
+  getAllPost,
+  likePost,
+  addComment,
+  deletePost,
+  editPost,
+  getPost,
+};
