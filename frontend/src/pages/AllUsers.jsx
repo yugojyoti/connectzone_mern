@@ -42,7 +42,7 @@ const AllUsers = () => {
       message.error(error.error);
     }
   };
-  const handleSearch = () => {};
+
   return (
     <DefaultLayout>
       {isLoading ? (

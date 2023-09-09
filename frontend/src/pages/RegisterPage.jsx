@@ -11,7 +11,7 @@ import {
 import { Link } from "react-router-dom";
 import { useRegisterMutation } from "../redux/slices/userApiSlice";
 import Loader from "../component/Loader";
-import { toast } from "react-toastify";
+
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredential } from "../redux/slices/authSlice";

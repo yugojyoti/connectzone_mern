@@ -34,7 +34,6 @@ const EditPost = () => {
       message.success(res.message);
       navigate(`/profile/${userInfo._id}`);
     } catch (error) {
-      console.log(error);
       message.error(error?.data?.message || error.error);
     }
   };

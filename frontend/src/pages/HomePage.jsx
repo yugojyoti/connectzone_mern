@@ -7,7 +7,7 @@ import Post from "./../component/Post";
 
 const HomePage = () => {
   const { data, isLoading, error } = useGetAllPostQuery();
-  console.log(data);
+
   return (
     <>
       {isLoading ? (
