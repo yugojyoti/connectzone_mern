@@ -26,6 +26,21 @@ const LoginPage = () => {
   const [username, setUsername] = useState("");
 
   const [password, setPassword] = useState("");
+  const handleGuest = async () => {
+    const user = {
+      username: "Guest",
+      password: "password",
+    };
+    console.log("user", user);
+    try {
+      const res = await login(user).unwrap();
+      dispatch(setCredential({ ...res.user }));
+      message.success(res.message);
+      navigate("/");
+    } catch (error) {
+      message.error(error?.data?.message || error.error);
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user = {
@@ -80,17 +95,26 @@ const LoginPage = () => {
                     ></Form.Control>
                   </Form.Group>
                   <div className="d-flex justify-content-center ">
-                    <Button type="submit" className="mt-3 text-center">
+                    <Button type="submit" className="my-3 text-center">
                       {" "}
                       Login
                     </Button>
                   </div>
-                  <div className="d-flex justify-content-center mt-3">
-                    <Link to="/register">
-                      New User? Click here to Register{" "}
-                    </Link>
-                  </div>
                 </Form>
+
+                <div className="d-flex justify-content-center">
+                  <Button
+                    onClick={handleGuest}
+                    className="btn btn-dark"
+                    type="button"
+                  >
+                    {" "}
+                    Login as a Guest
+                  </Button>
+                </div>
+                <div className="d-flex justify-content-center mt-3">
+                  <Link to="/register">New User? Click here to Register </Link>
+                </div>
               </Card>
             </Col>
           </Row>
